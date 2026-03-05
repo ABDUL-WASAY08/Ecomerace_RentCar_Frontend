@@ -1,6 +1,6 @@
 import axios from "axios";
 
-
+axios.defaults.withCredentials = true;
 const api = axios.create({
     baseURL: `${import.meta.env.VITE_API_BASE || 'http://localhost:5000/ECOMERACE'}`,
     withCredentials: true,
