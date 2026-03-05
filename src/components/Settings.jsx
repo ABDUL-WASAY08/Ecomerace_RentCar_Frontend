@@ -1,109 +1,118 @@
 import React, { useState } from 'react';
-import { User, Mail, Lock, ShieldCheck, Key, Camera, X } from 'lucide-react';
+import { Mail, Lock, ShieldCheck, Key, Camera, X, LogOut, Trash2 } from 'lucide-react';
+import useUserStore from '../Store/useUserStore';
+import { useNavigate } from 'react-router-dom';
 
 function Settings() {
-  const [showPopup, setShowPopup] = useState(false);
+  const navigate = useNavigate();
+  const { user, updatePassword, logout, deleteAccount, isLoading } = useUserStore();
 
-  // User details (Dummy)
-  const user = {
-    name: "Admin User",
-    email: "admin@rentcars.com",
-    profilePic: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop"
+  const [showPopup, setShowPopup] = useState(false);
+  const [passData, setPassData] = useState({ oldPassword: '', newPassword: '' });
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/"); 
   };
 
-  const handleAutoPassword = () => {
-    setShowPopup(true);
-    setTimeout(() => setShowPopup(false), 4000); // 4 sec baad popup khud band ho jaye
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure? This will permanently delete your account.")) {
+      const res = await deleteAccount();
+      if (res.success) navigate("/");
+    }
+  };
+
+  const handleUpdatePass = async (e) => {
+    e.preventDefault();
+    const res = await updatePassword(passData);
+    alert(res.message);
+    if (res.success) setPassData({ oldPassword: '', newPassword: '' });
   };
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-24 md:pb-8">
-      {/* Profile Header */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-100 shadow-sm">
-        <div className="flex flex-col sm:flex-row items-center gap-6">
-          <div className="relative group">
-            <img 
-              src={user.profilePic} 
-              alt="Profile" 
-              className="w-24 h-24 sm:w-32 sm:h-32 rounded-3xl object-cover border-4 border-[#ecd1af]/20"
-            />
-            <button className="absolute bottom-2 right-2 p-2 bg-white rounded-xl shadow-lg border border-gray-100 text-gray-600 hover:text-[#ecd1af] transition-colors">
-              <Camera className="w-4 h-4" />
-            </button>
-          </div>
-          
-          <div className="text-center sm:text-left flex-1">
-            <h2 className="text-2xl font-bold text-gray-900">{user.name}</h2>
-            <p className="text-gray-500 flex items-center justify-center sm:justify-start gap-2 mt-1">
-              <Mail className="w-4 h-4" /> {user.email}
-            </p>
-            <div className="mt-4 flex flex-wrap justify-center sm:justify-start gap-2">
-              <span className="px-3 py-1 bg-green-50 text-green-600 text-xs font-bold rounded-lg border border-green-100">Verified Account</span>
-              <span className="px-3 py-1 bg-[#ecd1af]/10 text-[#c5a884] text-xs font-bold rounded-lg border border-[#ecd1af]/20">Super Admin</span>
-            </div>
-          </div>
+    <div className="mx-auto space-y-6 pb-10 px-4">
+      <div className="bg-white p-6 flex flex-col sm:flex-row items-center gap-6">
+        <div className="relative">
+          <img 
+            src={user?.profilePic || "https://ui-avatars.com/api/?name=" + user?.name} 
+            alt="Profile" 
+            className="w-20 h-20 rounded-2xl object-cover border-2 border-[#ecd1af]/20"
+          />
+        </div>
+        <div className="text-center sm:text-left">
+          <h2 className="text-xl font-bold text-gray-900 uppercase">{user?.name || "User Name"}</h2>
+          <p className="text-sm text-[#935732] flex items-center gap-2">
+            <Mail className="w-3 h-3" /> {user?.email || "email@example.com"}
+          </p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Option 1: Quick Reset */}
-        <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex flex-col justify-between">
-          <div>
-            <div className="w-12 h-12 bg-blue-50 rounded-2xl flex items-center justify-center mb-4">
-              <ShieldCheck className="w-6 h-6 text-blue-500" />
-            </div>
-            <h3 className="text-lg font-bold text-gray-900">Quick Reset</h3>
-            <p className="text-sm text-gray-500 mt-2">
-              System will generate a strong random password and send it to your registered Gmail account.
-            </p>
+        <div className="bg-white p-5 flex flex-col">
+          <div className="flex items-center gap-3 mb-3">
+            <ShieldCheck className="w-5 h-5 text-blue-500" />
+            <h3 className="font-bold text-[#935732]">Quick Reset</h3>
           </div>
+          <p className="text-xs text-gray-500 mb-4 flex-grow">
+            System will send a random strong password to your email.
+          </p>
           <button 
-            onClick={handleAutoPassword}
-            className="mt-6 w-full py-3 bg-gray-900 text-white rounded-2xl font-bold hover:bg-black transition-all flex items-center justify-center gap-2"
+            onClick={() => setShowPopup(true)} 
+            className="w-fit px-4 py-2 bg-[#935732] text-white text-sm rounded-xl font-bold hover:bg-black transition-all flex items-center gap-2"
           >
-            <Key className="w-4 h-4" /> Send New Password
+            <Key className="w-3.5 h-3.5" /> Send Reset Email
           </button>
         </div>
-
-        {/* Option 2: Manual Update */}
-        <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
-          <div className="w-12 h-12 bg-[#ecd1af]/10 rounded-2xl flex items-center justify-center mb-4">
-            <Lock className="w-6 h-6 text-[#ecd1af]" />
+        <div className="bg-white p-5">
+          <div className="flex items-center gap-3 mb-3">
+            <Lock className="w-5 h-5 text-[#ecd1af]" />
+            <h3 className="font-bold text-[#935732]">Manual Change</h3>
           </div>
-          <h3 className="text-lg font-bold text-gray-900">Manual Change</h3>
-          <form className="mt-4 space-y-3" onSubmit={(e) => e.preventDefault()}>
+          <form className="space-y-2" onSubmit={handleUpdatePass}>
             <input 
-              type="password" 
-              placeholder="Current Password" 
-              className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#ecd1af]/50"
+              type="password" placeholder="Old Password" required
+              value={passData.oldPassword}
+              onChange={(e) => setPassData({...passData, oldPassword: e.target.value})}
+              className="text-black w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm outline-none focus:ring-1 focus:ring-[#ecd1af]"
             />
             <input 
-              type="password" 
-              placeholder="New Password" 
-              className="w-full px-4 py-3 bg-gray-50 border border-gray-100 rounded-xl text-sm outline-none focus:ring-2 focus:ring-[#ecd1af]/50"
+              type="password" placeholder="New Password" required
+              value={passData.newPassword}
+              onChange={(e) => setPassData({...passData, newPassword: e.target.value})}
+              className="text-black w-full px-3 py-2 bg-gray-50 border border-gray-100 rounded-lg text-sm outline-none focus:ring-1 focus:ring-[#ecd1af]"
             />
-            <button className="w-full py-3 bg-[#ecd1af] text-white rounded-2xl font-bold hover:bg-[#dab890] transition-all">
-              Update Password
+            <button 
+              type="submit"
+              disabled={isLoading}
+              className="w-fit px-4 py-2 bg-[#935732] text-white text-sm rounded-xl font-bold hover:bg-[#ecd1af] transition-all disabled:opacity-50"
+            >
+              {isLoading ? "Updating..." : "Update Password"}
             </button>
           </form>
         </div>
       </div>
-
-      {/* Success Popup */}
+      <div className="bg-white p-6">
+        <h3 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Account Actions</h3>
+        <div className="flex flex-wrap gap-4">
+          <button 
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-xl transition-all"
+          >
+            <LogOut className="w-4 h-4" /> Logout
+          </button>
+          <button 
+            onClick={handleDelete}
+            className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-red-500 bg-red-50 hover:bg-red-100 rounded-xl transition-all"
+          >
+            <Trash2 className="w-4 h-4" /> Delete Account
+          </button>
+        </div>
+      </div>
       {showPopup && (
-        <div className="fixed top-10 left-1/2 -translate-x-1/2 z-[200] animate-bounce-in">
-          <div className="bg-white border-2 border-green-500 px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4">
-            <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-              <Mail className="w-5 h-5 text-green-600" />
-            </div>
-            <div>
-              <p className="font-bold text-gray-900">Email Sent!</p>
-              <p className="text-xs text-gray-500">Your new password is sent to <span className="font-semibold">{user.email}</span></p>
-            </div>
-            <button onClick={() => setShowPopup(false)} className="ml-4">
-              <X className="w-4 h-4 text-gray-400" />
-            </button>
-          </div>
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] bg-white border border-green-500 px-4 py-3 rounded-xl shadow-xl flex items-center gap-3 animate-in fade-in zoom-in duration-300">
+          <Mail className="w-4 h-4 text-green-600" />
+          <p className="text-xs font-bold text-gray-800">Password request sent!</p>
+          <button onClick={() => setShowPopup(false)}><X className="w-3 h-3 text-gray-400" /></button>
         </div>
       )}
     </div>
