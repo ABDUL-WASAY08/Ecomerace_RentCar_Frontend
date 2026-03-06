@@ -21,7 +21,7 @@ function Settings() {
       const res = await deleteAccount();
       if (res.success)
           localStorage.removeItem("token")
-          navigate("/");
+          navigate("/Auth");
     }
   };
 
