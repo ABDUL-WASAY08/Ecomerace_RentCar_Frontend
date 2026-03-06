@@ -36,6 +36,7 @@ const useUserStore = create(
           await api.get('/user/logout');
           set({ user: null, isAuthenticated: false });
           localStorage.removeItem('user-storage');
+          localStorage.removeItem("token")
           return { success: true };
         } catch (error) {
           console.error("Logout error", error);
