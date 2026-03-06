@@ -12,13 +12,16 @@ function Settings() {
 
   const handleLogout = async () => {
     await logout();
-    navigate("/"); 
+    localStorage.removeItem("token")
+    navigate("/Auth"); 
   };
 
   const handleDelete = async () => {
     if (window.confirm("Are you sure? This will permanently delete your account.")) {
       const res = await deleteAccount();
-      if (res.success) navigate("/");
+      if (res.success)
+          localStorage.removeItem("token")
+          navigate("/");
     }
   };
 
