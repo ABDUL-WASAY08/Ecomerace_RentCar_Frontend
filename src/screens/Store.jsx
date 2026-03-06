@@ -148,46 +148,62 @@ const BrowseCars = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    if (!startDate || !endDate) {
-      return alert("Please select both Pick-up and Return dates.");
-    }
-
-    if (new Date(startDate) > new Date(endDate)) {
-      return alert("Return date cannot be before the Pick-up date.");
-    }
-
-    setIsSubmitting(true);
-    try {
-      const response = await api.post(
-        "/rent/request-rent",
-        {
-          carId: selectedCar._id,
-          startDate,
-          endDate,
-        },
-        { withCredentials: true }
-      );
-
-      if (response.status === 200 || response.status === 201) {
-        alert("Booking request sent successfully!");
-        setSelectedCar(null);
-        setStartDate("");
-        setEndDate("");
-        navigate("/dashboard");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login to access the dashboard");
+      navigate("/Auth");
+      return;
+    } else {
+      if (!startDate || !endDate) {
+        return alert("Please select both Pick-up and Return dates.");
       }
-    } catch (error) {
-      console.error("Booking Error:", error);
-      alert(error.response?.data?.message || "Failed to send request.");
-    } finally {
-      setIsSubmitting(false);
+
+      if (new Date(startDate) > new Date(endDate)) {
+        return alert("Return date cannot be before the Pick-up date.");
+      }
+
+      setIsSubmitting(true);
+      try {
+        const response = await api.post(
+          "/rent/request-rent",
+          {
+            carId: selectedCar._id,
+            startDate,
+            endDate,
+          },
+          { withCredentials: true },
+        );
+
+        if (response.status === 200 || response.status === 201) {
+          alert("Booking request sent successfully!");
+          setSelectedCar(null);
+          setStartDate("");
+          setEndDate("");
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        console.error("Booking Error:", error);
+        alert(error.response?.data?.message || "Failed to send request.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+  const handleDashboardClick = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login to access the dashboard");
+      navigate("/Auth");
+    } else {
+      navigate("/dashboard");
     }
   };
   return (
     <div className="bg-[#fdfbf7] min-h-screen font-sans text-gray-900 selection:bg-[#432818] selection:text-white">
       <Header />
-    {/* header buttons */}
+      {/* header buttons */}
       <main className="max-w-[1440px] mx-auto px-4 sm:px-8 pt-32 pb-20">
-        <div className="flex flex-col md:flex-row gap-4 mb-12 items-center">
+        <div className="flex  md:flex-row gap-4 mb-12 items-center">
           <div className="relative flex-1 group w-full">
             <Search
               className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#432818] transition-colors"
@@ -203,7 +219,7 @@ const BrowseCars = () => {
           </div>
           <button
             onClick={() => setIsFilterOpen(true)}
-            className="flex items-center gap-3 bg-[#432818] text-white px-5 py-4 rounded-[1rem] font-bold text-xs uppercase tracking-widest hover:bg-[#5e3c28] transition-all shadow-xl shadow-brown-900/20 active:scale-95"
+            className="flex items-center gap-3 text-[#432818]  px-5 py-4 font-bold text-xs uppercase tracking-widest hover:text-red-900 transition-all active:scale-95"
           >
             <SlidersHorizontal size={18} /> Filters
             {(cityFilter || isNearbyActive) && (
@@ -211,8 +227,8 @@ const BrowseCars = () => {
             )}
           </button>
           <button
-            onClick={() => navigate("/dashboard")}
-            className="flex-1 md:flex-none bg-[#432818] text-white px-5 py-4 rounded-[1rem] font-bold text-xs uppercase tracking-widest hover:bg-[#5e3c28] transition-all shadow-xl shadow-brown-900/20 active:scale-95"
+            onClick={handleDashboardClick}
+            className="flex md:flex-none text-[#432818]  px-5 py-4  font-bold text-xs uppercase tracking-widest hover:text-red-900 transition-all active:scale-95"
           >
             Dashboard →
           </button>

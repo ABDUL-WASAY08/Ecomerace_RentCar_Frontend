@@ -108,6 +108,7 @@ function Auth() {
           } else {
             console.warn("❌ User ID not available in response");
           }
+           localStorage.setItem(response.data.token)
           navigate("/store");
         }
       }
@@ -123,6 +124,7 @@ function Auth() {
       });
       if (response.data.status || response.data.success) {
         setUser(response.data.user);
+        localStorage.setItem(response.data.token)
         navigate("/store");
       }
     } catch (error) {
