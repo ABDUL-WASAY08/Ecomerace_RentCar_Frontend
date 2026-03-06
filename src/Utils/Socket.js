@@ -14,6 +14,7 @@ export const createSocketConnection = (userId) => {
     socketInstance = io(SocketUrl, {
         autoConnect: false,
         withCredentials: true,
+        transports: ["websocket"],
         query: {
             userId: userId
         },

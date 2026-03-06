@@ -100,14 +100,14 @@ function Auth() {
 
           if (response.data.token)
             localStorage.setItem("token", response.data.token);
-          // if (response.data.user && response.data.user.id) {
-          //   connectSocket(response.data.user.id);
+          if (response.data.user && response.data.user.id) {
+            connectSocket(response.data.user.id);
 
-          //   listenToBookings();
-          //   console.log("✅ Socket connection initiated for user:", response.data.user.id);
-          // } else {
-          //   console.warn("❌ User ID not available in response");
-          // }
+            listenToBookings();
+            console.log("✅ Socket connection initiated for user:", response.data.user.id);
+          } else {
+            console.warn("❌ User ID not available in response");
+          }
           navigate("/store");
         }
       }
