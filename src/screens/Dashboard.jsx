@@ -184,7 +184,7 @@ function Dashboard() {
                   Sign Out
                 </button>
                 <button
-                  className="group  flex items-center justify-between gap-1.5 p-3 rounded-xl bg-gray-50 text-[#432818] hover:bg-[#fdf8f3] transition-all duration-300 text-[10px] font-black uppercase tracking-widest outline-none border border-transparent hover:border-[#ecd1af]"
+                  className="hidden md:block group  flex items-center justify-between gap-1.5 p-3 rounded-xl bg-gray-50 text-[#432818] hover:bg-[#fdf8f3] transition-all duration-300 text-[10px] font-black uppercase tracking-widest outline-none border border-transparent hover:border-[#ecd1af]"
                   onClick={() => navigate("/store")}
                 >
                   <span>Visit Store</span>

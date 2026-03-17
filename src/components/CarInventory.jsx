@@ -49,7 +49,7 @@ function CarInventory({ goToBookings }) {
         {displayCars.map((car) => (
           <div
             key={car._id || car.id}
-            onClick={goToBookings}
+            onClick={isUsingDummy?  ()=> {alert('this is only pre')} : goToBookings}
             className="cursor-pointer border border-gray-100 rounded-xl overflow-hidden transition-all bg-gray-50/50 hover:shadow-md hover:border-[#ecd1af] p-2 group"
           >
             <div className="h-40 sm:h-44 md:h-48 w-full bg-gray-200 overflow-hidden relative">

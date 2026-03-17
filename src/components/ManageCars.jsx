@@ -134,14 +134,14 @@ function ManageCars() {
   return (
     <div className="max-w-6xl mx-auto p-4 sm:p-6 space-y-8">
       {/* Header Section */}
-      <div className="flex justify-between items-end border-b border-gray-100 pb-6">
+      <div className="flex-cols md:flex  justify-between items-end border-b border-gray-100 pb-6">
         <div>
-          <p className="text-gray-300 font-medium">Manage your luxury vehicle inventory</p>
+          <p className="text-gray-300 font-medium pointer-events-none mb-5 ">Manage your luxury vehicle inventory</p>
         </div>
         {!isFormOpen && (
           <button 
             onClick={() => openForm()}
-            className="flex items-center gap-2 bg-[#432818] text-white px-6 py-3 rounded-2xl text-sm font-bold hover:bg-black transition-all active:scale-95"
+            className=" w-full flex items-center gap-2 bg-[#432818] text-white px-6 py-3 rounded-2xl text-sm font-bold hover:bg-black transition-all active:scale-95"
           >
             <Plus className="w-5 h-5" /> Add New Vehicle
           </button>
