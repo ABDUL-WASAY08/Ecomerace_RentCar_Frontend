@@ -199,11 +199,10 @@ const BrowseCars = () => {
     }
   };
   return (
-    <div className="bg-[#fdfbf7] min-h-screen font-sans text-gray-900 selection:bg-[#432818] selection:text-white">
+    <div className="bg-[#fdfbf7] min-h-screen font-sans text-gray-900 selection:bg-[#432818] selection:text-white ">
       <Header />
-      {/* header buttons */}
       <main className="max-w-[1440px] mx-auto px-4 sm:px-8 pt-32 pb-20">
-        <div className="flex  md:flex-row gap-4 mb-12 items-center">
+        <div className="flex-col  md:flex-row gap-4 mb-12 items-center">
           <div className="relative flex-1 group w-full">
             <Search
               className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-[#432818] transition-colors"
@@ -233,12 +232,9 @@ const BrowseCars = () => {
             Dashboard →
           </button>
         </div>
-
         <div className="flex flex-col lg:flex-row gap-12">
-          {/* Main Grid */}
           <div className="flex-1">
             {selectedCar ? (
-              // --- BOOKING VIEW ---
               <div className="bg-white rounded-[3rem] p-8 md:p-12 shadow-xl border border-[#ede0d4]">
                 <button
                   onClick={() => setSelectedCar(null)}
@@ -315,7 +311,7 @@ const BrowseCars = () => {
                     </p>
                   </div>
                 ) : (
-                  <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xlg:grid-cols-3 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xlg:grid-cols-3 gap-8">
                     {filteredCars.map((car) => {
                       const dist = userLocation.lat
                         ? getDistance(

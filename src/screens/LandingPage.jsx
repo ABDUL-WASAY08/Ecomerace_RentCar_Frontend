@@ -57,7 +57,7 @@ function LandingPage() {
   return (
     <div className="bg-[#FEFAE0] min-h-screen">
       <Header />
-      <div ref={containerRef} className="relative h-[400vh]">
+      <div ref={containerRef} className="relative h-[100vh] pt-20 md:pt-10">
         <div className="sticky top-0 h-screen flex items-center px-6 md:px-12 lg:px-20 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 w-full gap-10 lg:gap-20 items-center">
             <div className="flex flex-col relative h-[300px] md:h-[400px] justify-center text-center lg:text-left">
