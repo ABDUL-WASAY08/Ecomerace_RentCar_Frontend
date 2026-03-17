@@ -266,7 +266,7 @@ function ManageCars() {
 
       {/* Main Table Section */}
       <div className={`transition-opacity duration-300 ${isFormOpen ? 'opacity-40 pointer-events-none' : 'opacity-100'}`}>
-         <div className="bg-white  overflow-hidden">
+         <div className="bg-white  overflow-y-auto">
             <table className="w-full text-left">
               <thead className="bg-gray-50/50">
                 <tr className="text-[10px] font-black uppercase text-gray-400 tracking-widest">
