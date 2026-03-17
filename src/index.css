@@ -11,5 +11,64 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
+}
+
+@keyframes slideShow {
+  0% {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  8% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  42% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+}
+
+@keyframes dotPulse {
+  0%,
+  100% {
+    background-color: #d1d5db;
+    transform: scale(1);
+  }
+  25%,
+  75% {
+    background-color: #996244;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes fadeSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  10% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
 }

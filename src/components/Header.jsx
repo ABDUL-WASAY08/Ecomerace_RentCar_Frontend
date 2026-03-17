@@ -140,14 +140,14 @@ function Header() {
         </div>
         <button
           onClick={() => navigate("/Auth")}
-          className="hidden sm:flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-black hover:text-[#F5B754] transition-all"
+          className="hidden sm:flex items-center gap-2 text-[12px] font-bold  tracking-widest text-black hover:text-[#F5B754] transition-all "
         >
-          <span className="text-sm">←</span> Login
+          <span className="text-md">←</span> Login
         </button>
 
         <div className="flex items-center gap-5 border-l border-white/10 pl-6">
           <button
-            className="text-[10px] font-black uppercase tracking-[0.2em] text-black hover:text-[#F5B754] transition-colors"
+            className="text-[12px] font-black tracking-[0.2em] text-black hover:text-[#F5B754] transition-colors"
             onClick={() => navigate("/store")}
           >
             Store

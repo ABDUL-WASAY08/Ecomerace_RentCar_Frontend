@@ -16,7 +16,6 @@ function App() {
   //     listenToBookings();
   //   }
   // }, [user, connectSocket, listenToBookings]);
-
   return (
     <>
       <BrowserRouter>
