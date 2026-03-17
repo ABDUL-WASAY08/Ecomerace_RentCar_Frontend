@@ -141,7 +141,7 @@ function ManageCars() {
         {!isFormOpen && (
           <button 
             onClick={() => openForm()}
-            className=" w-full flex items-center gap-2 bg-[#432818] text-white px-6 py-3 rounded-2xl text-sm font-bold hover:bg-black transition-all active:scale-95"
+            className=" w-full md:w-[240px] flex items-center gap-2 bg-[#432818]  text-white px-6 py-3 rounded-2xl text-sm font-bold hover:bg-black transition-all active:scale-95"
           >
             <Plus className="w-5 h-5" /> Add New Vehicle
           </button>
