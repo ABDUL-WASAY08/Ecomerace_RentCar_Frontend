@@ -134,7 +134,7 @@ function LandingPage() {
       </div>
 
       {/* Footer Area */}
-      <div className="w-full relative lg:fixed bottom-0 bg-[#FEFAE0]/80 backdrop-blur-sm flex flex-col items-center justify-center p-6">
+      <div className="w-full relative lg:fixed bottom-0 bg-[#FEFAE0]/80 backdrop-blur-sm flex flex-col items-center justify-center p-6 mt-10">
         <div className="flex items-center gap-8">
           <a
             href="#"
