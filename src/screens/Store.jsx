@@ -368,11 +368,13 @@ const BrowseCars = () => {
                               </div>
                             </div>
                             <button
-                              onClick={() =>{ 
-                                if(localStorage.getItem('token'))
-                                  {setSelectedCar(car)}
-                                  navigate('/Auth')
-                                }}
+                              onClick={() => {
+                                if (!localStorage.getItem("token")) {
+                                  navigate("/Auth");
+                                } else {
+                                  setSelectedCar(car);
+                                }
+                              }}
                               className="w-full flex items-center justify-center gap-2 py-5 bg-[#f8f5f0] group-hover:bg-[#432818] group-hover:text-white text-[#432818] rounded-[1.5rem] font-black text-xs uppercase tracking-[0.2em] transition-all duration-300"
                             >
                               Reserve Now <ChevronRight size={14} />
