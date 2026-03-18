@@ -157,11 +157,11 @@ function LandingPage() {
       <Header />
       
       {/* Hero Section */}
-      <div ref={containerRef} className="relative h-[100vh] pt-20 md:pt-10">
+      <div ref={containerRef} className="relative h-[100vh] pt-20 md:pt-40 lg:pt-10">
         <div className="sticky top-0 h-screen flex items-center px-6 md:px-12 lg:px-20 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 w-full gap-10 lg:gap-20 items-center">
             <div className="flex flex-col relative h-[300px] md:h-[400px] justify-center text-center lg:text-left">
-              <div className="text-[#996244] font-bold text-4xl md:text-5xl lg:text-6xl mb-6 lg:mb-12 leading-tight">
+              <div className="text-[#996244] font-bold text-4xl md:text-4xl lg:text-6xl mb-6 lg:mb-12 leading-tight">
                 Don't just catch a ride, <br />
                 <span className="text-black">curate the drive.</span>
                 <div className="relative ">
@@ -234,7 +234,7 @@ function LandingPage() {
       </div>
 
       {/* Features Section */}
-      <section className="px-6 md:px-12 lg:px-20 py-20 bg-[#FEFAE0]">
+      <section className="px-6 md:px-12 lg:px-20 py-60 bg-[#FEFAE0]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-[#996244] font-semibold tracking-wider uppercase text-sm">Why Choose Us</span>
