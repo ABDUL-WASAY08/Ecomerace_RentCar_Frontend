@@ -11,14 +11,14 @@ import {
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import api from "../api/axiosInstance";
-import useUserStore from "../Store/useUserStore"; 
+import useUserStore from "../Store/useUserStore";
 import useSocketStore from "../Store/useSocket";
 
 function Auth() {
   const navigate = useNavigate();
   const { setUser } = useUserStore();
   const [activetab, setActiveTab] = useState("register");
-  const { connectSocket, listenToBookings } = useSocketStore(); 
+  const { connectSocket, listenToBookings } = useSocketStore();
   const [state, handleSubmit] = useForm("mzdakole");
 
   const [formData, SetformData] = useState({
@@ -38,7 +38,7 @@ function Auth() {
       id: 2,
       title: "Safety & Trust Features",
       desc: "Fully insured and 24/7 support.",
-      icon: <ShieldCheck size={24} color="#432818"/>,
+      icon: <ShieldCheck size={24} color="#432818" />,
     },
     {
       id: 3,
@@ -104,7 +104,10 @@ function Auth() {
             connectSocket(response.data.user.id);
 
             listenToBookings();
-            console.log("✅ Socket connection initiated for user:", response.data.user.id);
+            console.log(
+              "✅ Socket connection initiated for user:",
+              response.data.user.id,
+            );
           } else {
             console.warn("❌ User ID not available in response");
           }
@@ -123,7 +126,7 @@ function Auth() {
       });
       if (response.data.status || response.data.success) {
         setUser(response.data.user);
-       localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.token);
         navigate("/store");
       }
     } catch (error) {
@@ -186,7 +189,9 @@ function Auth() {
             {activetab === "register" ? (
               <>
                 <div className="text-center text-2xl md:text-4xl lg:text-5xl mb-10">
-                  <h1 className="text-[#432818] font-bold uppercase pointer-events-none">CREATE YOUR ACCOUNT</h1>
+                  <h1 className="text-[#432818] font-bold uppercase pointer-events-none">
+                    CREATE YOUR ACCOUNT
+                  </h1>
                 </div>
                 <form
                   className="space-y-4 w-2/3 relative z-50"
@@ -269,6 +274,7 @@ function Auth() {
                       onSuccess={handleGoogleSuccess}
                       onError={() => console.log("Login Failed")}
                       use_fedcm_for_prompt={true}
+                      ux_mode="redirect"
                       theme="filled_black"
                       shape="pill"
                     />
@@ -278,7 +284,9 @@ function Auth() {
             ) : (
               <>
                 <div className="text-center text-2xl md:text-4xl lg:text-5xl mb-10">
-                  <h1 className=" text-[#432818] font-bold uppercase">WELCOME BACK</h1>
+                  <h1 className=" text-[#432818] font-bold uppercase">
+                    WELCOME BACK
+                  </h1>
                 </div>
                 <form
                   className="space-y-4 w-2/3 relative z-50"
@@ -341,6 +349,8 @@ function Auth() {
                     <GoogleLogin
                       onSuccess={handleGoogleSuccess}
                       onError={() => console.log("Login Failed")}
+                      use_fedcm_for_prompt={true}
+                      ux_mode="redirect"
                       theme="filled_black"
                       shape="pill"
                     />
